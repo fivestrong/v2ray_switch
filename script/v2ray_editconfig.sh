@@ -22,11 +22,21 @@ case $v2ray_network in
         }
       }"
                 ;;
-		ws)
+		    ws)
                 ws="{
         \"connectionReuse\": true,
         \"path\": \"$v2ray_network_path\",
         \"headers\": null
+      }"
+                ;;
+        ws_hd)
+                v2ray_network="ws"
+                ws="{
+        \"connectionReuse\": true,
+        \"path\": \"$v2ray_network_path\",
+        \"headers\": {
+          \"Host\": \"$v2ray_network_host\"
+        }     
       }"
                 ;;
 esac

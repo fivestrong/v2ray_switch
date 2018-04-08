@@ -43,8 +43,14 @@
 				if (networkData == "ws") {
 					$j("#tr_v2ray_headtype").hide();
 					$j("#tr_v2ray_network_path").fadeIn();
-				} else {
+					$j("#tr_v2ray_network_host").hide();
+				}else if(networkData == "ws_hd"){
+					$j("#tr_v2ray_headtype").hide();
+					$j("#tr_v2ray_network_path").fadeIn();
+					$j("#tr_v2ray_network_host").fadeIn();
+				}else {
 					$j("#tr_v2ray_network_path").hide();
+					$j("#tr_v2ray_network_host").hide();
 					setHeadType(networkData);
 					$j("#tr_v2ray_headtype").fadeIn();
 				}
@@ -57,6 +63,7 @@
 			$j("#v2ray_network").val(db_v2ray_["v2ray_network"]).change();//传输协议
 			$j("#v2ray_headtype").val(db_v2ray_["v2ray_headtype"]);//伪装类型
 			$j("#v2ray_network_path").val(db_v2ray_["v2ray_network_path"]);//伪装路径
+			$j("#v2ray_network_host").val(db_v2ray_["v2ray_network_host"]);//伪装headers
 			$j("#v2ray_network_security").val(db_v2ray_["v2ray_network_security"]);//底层加密方式
 			//显示日志框
 			$j("#v2ray_log_button").click(function () {
@@ -392,6 +399,7 @@
 																<option value="tcp">tcp</option>
 																<option value="kcp">kcp</option>
 																<option value="ws">ws</option>
+																<option value="ws_hd">ws_headers</option>
 															</select>
 														</div>
 													</td>
@@ -408,6 +416,13 @@
 													<th width="35%">伪装路径(ws path)</th>
 													<td>
 														<input type="text" maxlength="64" id="v2ray_network_path" name="v2ray_network_path" value="" class="input_ss_table" style="width:342px;float:left;"
+														 autocomplete="off" autocorrect="off" autocapitalize="off" />
+													</td>
+												</tr>
+												<tr id="tr_v2ray_network_host" style="display: none;">
+													<th width="35%">伪装Host(headers)</th>
+													<td>
+														<input type="text" maxlength="64" id="v2ray_network_host" name="v2ray_network_host" value="null" class="input_ss_table" style="width:342px;float:left;"
 														 autocomplete="off" autocorrect="off" autocapitalize="off" />
 													</td>
 												</tr>
