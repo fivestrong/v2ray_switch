@@ -168,6 +168,36 @@
 					break;
 			}
 		}
+		//执行重启shell
+		function restart_v2ray(){
+			$j.ajax({
+				url: 'apply.cgi?current_page=Module_v2ray.asp&next_page=Module_v2ray.asp&group_id=&modified=0&action_mode=+Refresh+&action_script=&action_wait=&first_time=&preferred_lang=CN&SystemCmd=v2ray_restart.sh&firmver=3.0.0.4',
+				contentType: "application/x-www-form-urlencoded",
+				dataType: 'text',
+				error: function (xhr) {
+					alert("error");
+				},
+				success: function(response) {
+					showLoading(10);
+				    setTimeout(function () { get_satus(); }, 10100);
+				}
+            });
+		}
+		//执行更新shell
+		function update_v2ray(){
+			$j.ajax({
+				url: 'apply.cgi?current_page=Module_v2ray.asp&next_page=Module_v2ray.asp&group_id=&modified=0&action_mode=+Refresh+&action_script=&action_wait=&first_time=&preferred_lang=CN&SystemCmd=v2ray_update.sh&firmver=3.0.0.4',
+				contentType: "application/x-www-form-urlencoded",
+				dataType: 'text',
+				error: function (xhr) {
+					alert("error");
+				},
+				success: function(response) {
+					showLoading(10);
+				    setTimeout(function () { get_satus(); }, 10100);
+				}
+            });
+		}
 		//获取状态
 		function get_satus() {
 			$j.ajax({
@@ -340,6 +370,10 @@
 												<tr>
 													<th>运行状态</th>
 													<td id="v2ray_status">未知</td>
+													<td>
+														<button type="submit" onclick="restart_v2ray()">重启v2ray</button>
+														<button type="submit" onclick="update_v2ray()">更新v2ray</button>
+													</td>
 												</tr>
 											</table>
 

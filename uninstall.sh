@@ -25,3 +25,4 @@ rm -rf /koolshare/res/v2ray_status.htm
 rm -rf /koolshare/webs/Module_v2ray.asp
 rm -rf /koolshare/init.d/S165V2ray.sh
 rm -rf /koolshare/scripts/uninstall_v2ray.sh
+rm -rf /jffs/v2ray
