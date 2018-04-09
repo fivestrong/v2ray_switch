@@ -168,6 +168,30 @@
 					break;
 			}
 		}
+		function upload_v2ray_backup() {
+			if ($j('#v2ray_file').val == "") return false;
+			filename="v2ray_conf_backup.txt";
+			document.form.enctype = "multipart/form-data";
+			document.form.encoding = "multipart/form-data";
+			document.form.action = "/ssupload.cgi?a=/tmp/" + filename;
+			document.form.submit();
+			$j('#v2ray_file_info').text("完成");
+		}
+		//执行替换配置操作
+		function replace_v2ray_config(){
+			$j.ajax({
+				url: 'apply.cgi?current_page=Module_v2ray.asp&next_page=Module_v2ray.asp&group_id=&modified=0&action_mode=+Refresh+&action_script=&action_wait=&first_time=&preferred_lang=CN&SystemCmd=v2ray_conf_replace.sh&firmver=3.0.0.4',
+				contentType: "application/x-www-form-urlencoded",
+				dataType: 'text',
+				error: function (xhr) {
+					alert("error");
+				},
+				success: function(response) {
+					showLoading(10);
+				    setTimeout(function () { get_satus(); }, 10100);
+				}
+            });
+		}
 		//执行重启shell
 		function restart_v2ray(){
 			$j.ajax({
@@ -375,6 +399,15 @@
 														<button type="submit" onclick="update_v2ray()">更新v2ray</button>
 													</td>
 												</tr>
+												<tr>
+													<th style="width:20%;"><a class="hintstyle" href="javascript:void(0);">导入V2Ray节点(json)</a></th>
+													<td>
+														<input style="color:#FFCC00;*color:#000;width: 200px;" id="v2ray_file" type="file" name="file" accept=".json"/>
+														<span id="v2ray_file_info" style="display:block;">等待上传</span>
+														<button type="button"  onclick="upload_v2ray_backup()" >上传</button>
+														<button type="button"  onclick="replace_v2ray_config()">应用配置</button>
+													</td>
+												</tr>
 											</table>
 
 											<table style="margin:10px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3"
@@ -480,15 +513,14 @@
 											</div>
 											<div id="NoteBox">
 												<h2>一些注意事项：</h2>
-												<h3>本插件只在华硕ac68u上进行了测试，如果其他路由器例如网件，可能需要替换支持相关平台的v2ray等可执行文件</h3>
+												<h3>本插件在华硕ac68u,网件r6300v2上测试成功，其他平台请自行测试。</h3>
 												<h3>v2ray在路由器上存在启动崩溃现象，请设置客户以及服务器端alterid为较小值，例如10；
 													如果使用ws+tls请将域名以及时间同步服务器地址加入域名白名单，例如xxx.example.com,
 													pool.ntp.org.开启后会有守护进程检测v2ray状态,每两分钟检测一次.如果有其他需求请修改v2ray_run.sh</h3>
-												<h3>该开关需要先启动ss,输入配置后提交，会用v2ray进程替换原ss进程,点击关闭后提交会还原ss进程，从而实现切换。
-													理论上支持ssr配置和ss配置进程还原，但是我只测试了ssr进程(及rss-local,rss-redir)。
-												</h3>
+												<h3>该插件需要先启动ss,输入配置后提交，会用v2ray进程替换原ss进程,点击关闭后提交会还原ss进程，从而实现切换。</h3>
 												<h3>本插件原理论上支持ss插件的所有功能，但只测试了v2ray的ws+tls模式，如果有问题请尝试修改生成的config.json文件,
-													并打开log的debug模式进行调试。
+													并打开log的debug模式进行调试。插件提供导入配置，但需要修改特定端口，详细请看
+													<a href="https://gist.github.com/wd/e0bc83b33ce63506a9bdbc3b81658c52">梅林v2ray方案</a>
 												</h3>
 												<h3>守护脚本以及该插件原文件来自:<a href="https://t.me/merlinv2ray">Telegram群</a></h3>
 												<div style="margin-left:5px;margin-top:10px;margin-bottom:10px">
