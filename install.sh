@@ -36,5 +36,5 @@ if [ "$restart" == "1" ];then
 fi
 
 dbus set softcenter_module_v2ray_install=1
-dbus set softcenter_module_v2ray_version=1.1
+dbus set softcenter_module_v2ray_version=1.2
 dbus set softcenter_module_v2ray_description="V2RAY来自Project V"
