@@ -356,7 +356,7 @@
 											<div style="margin-left:5px;margin-top:10px;margin-bottom:10px">
 												<img src="/images/New_ui/export/line_export.png">
 											</div>
-											<div class="formfontdesc" id="cmdDesc">该工具用于爬墙操作”。</div>
+											<div class="formfontdesc" id="cmdDesc">该工具用于科学爱国</div>
 											<div class="formfontdesc" id="cmdDesc"></div>
 											<table style="margin:10px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3"
 											 class="FormTable" id="kms_table">

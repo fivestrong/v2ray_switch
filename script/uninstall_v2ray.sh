@@ -18,6 +18,7 @@ rm -rf /koolshare/bin/geoip.dat
 rm -rf /koolshare/bin/geosite.dat
 rm -rf /koolshare/bin/v2ray_config.json
 rm -rf /koolshare/scripts/v2ray.sh
+rm -rf /koolshare/scripts/go_arm.sh
 rm -rf /koolshare/scripts/v2ray_*
 rm -rf /koolshare/res/icon-v2ray.png
 rm -rf /koolshare/res/v2ray_log.htm
