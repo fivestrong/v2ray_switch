@@ -65,6 +65,7 @@
 			$j("#v2ray_network_path").val(db_v2ray_["v2ray_network_path"]);//伪装路径
 			$j("#v2ray_network_host").val(db_v2ray_["v2ray_network_host"]);//伪装headers
 			$j("#v2ray_network_security").val(db_v2ray_["v2ray_network_security"]);//底层加密方式
+			$j("#v2ray_network_mux").val(db_v2ray_["v2ray_network_mux"]);//多路复用mux
 			//显示日志框
 			$j("#v2ray_log_button").click(function () {
 				get_Log();
@@ -255,12 +256,15 @@
 					return;
 				}
 				$j("#v2ray_status").empty();
-				$j("#v2ray_status").append("<span>检测时间:" + obj.date + "</span>");
+				
 				if (obj.is_run) {
 					$j("#v2ray_status").append("<p style='color:green;'>V2ray运行中...</p>");
 				} else {
 					$j("#v2ray_status").append("<p style='color:red;'>V2ray未运行</p>");
 				}
+				$j("#v2ray_status").append("<span>当前v2ray版本:" + obj.version + "</span>");
+				$j("#v2ray_status").append("<br>");
+                $j("#v2ray_status").append("<span>检测时间:" + obj.date + "</span>");
 			});
 		}
 
@@ -348,25 +352,28 @@
 									<tr>
 										<td bgcolor="#4D595D" colspan="3" valign="top">
 											<div>&nbsp;</div>
-											<div style="float:left;" class="formfonttitle">V2Ray - 来自网络的Project V工具</div>
-											<div style="float:right; width:15px; height:25px;margin-top:10px">
+											<div class="formfonttitle"><em><font face="fantasy">软件中心 - V2ray</font></em>
+											</div>											<div style="float:right; width:15px; height:25px;margin-top:10px">
 												<img id="return_btn" onclick="reload_Soft_Center();" align="right" style="cursor:pointer;position:absolute;margin-left:-30px;margin-top:-25px;"
 												 title="返回软件中心" src="/images/backprev.png" onMouseOver="this.src='/images/backprevclick.png'" onMouseOut="this.src='/images/backprev.png'"></img>
 											</div>
 											<div style="margin-left:5px;margin-top:10px;margin-bottom:10px">
 												<img src="/images/New_ui/export/line_export.png">
 											</div>
-											<div class="formfontdesc" id="cmdDesc">该工具用于科学爱国</div>
+											<div class="SimpleNote">
+												<li id="push_content1" style='color:yellow;'"margin-top:-5px;"><font face="fantasy">来自网络的Project V工具.用于爬墙操作。</font></div>
 											<div class="formfontdesc" id="cmdDesc"></div>
 											<table style="margin:10px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3"
 											 class="FormTable" id="kms_table">
 												<thead>
 													<tr>
+                                                            
 														<td colspan="2">主要选项</td>
 													</tr>
 												</thead>
 												<tr>
-													<th>启动V2RAY</th>
+     
+													<th> V2ray开关</th>
 													<td colspan="2">
 														<div class="switch_field" style="display:table-cell;float: left;">
 															<label for="switch">
@@ -394,9 +401,7 @@
 												<tr>
 													<th>运行状态</th>
 													<td id="v2ray_status">未知</td>
-													<td>
-														<button type="submit" onclick="restart_v2ray()">重启v2ray</button>
-														<button type="submit" onclick="update_v2ray()">更新v2ray</button>
+													
 													</td>
 												</tr>
 												<tr>
@@ -406,6 +411,14 @@
 														<span id="v2ray_file_info" style="display:block;">等待上传</span>
 														<button type="button"  onclick="upload_v2ray_backup()" >上传</button>
 														<button type="button"  onclick="replace_v2ray_config()">应用配置</button>
+                                                                      
+														<button type="submit" onclick="restart_v2ray()">重启v2ray</button>
+														<button type="submit" onclick="update_v2ray()">更新v2ray</button>
+
+ 
+<a href="http://ip111.cn" target="_blank">[
+分流检测
+]</a>
 													</td>
 												</tr>
 											</table>
@@ -504,29 +517,42 @@
 														</div>
 													</td>
 												</tr>
+												<tr id="tr_v2ray_network_mux">
+													<th width="35%">多路复用(mux)</th>
+													<td>
+														<div style="float:left; width:165px; height:25px">
+															<select id="v2ray_network_mux" name="v2ray_network_mux" value="true" style="width:164px;margin:0px 0px 0px 2px;" class="input_option">
+																<option value="false">关闭</option>
+																<option value="true">开启mux</option>
+															</select>
+														</div>
+													</td>
+												</tr>
 											</table>
 											<div class="apply_gen">
-												<button id="cmdBtn" class="button_gen" onclick="onSubmitCtrl(this, ' Refresh ')">提交</button>
+												<button id="cmdBtn" class="button_gen" onclick="onSubmitCtrl(this, ' Refresh ')">保存❤应用</button>
 											</div>
 											<div style="margin-left:5px;margin-top:10px;margin-bottom:10px">
 												<img src="/images/New_ui/export/line_export.png">
 											</div>
 											<div id="NoteBox">
-												<h2>一些注意事项：</h2>
-												<h3>本插件在华硕ac68u,网件r6300v2上测试成功，其他平台请自行测试。</h3>
-												<h3>v2ray在路由器上存在启动崩溃现象，请设置客户以及服务器端alterid为较小值，例如10；
+												<h2>本插件仅支持Merlin AM380 2.6.36.4内核的固件，请不要用于其它固件安装。</li>
+												<h3>此插件在华硕ac68u,网件r6300v2上测试成功，其他平台请自行测试。</h3>
+                                                                                               <li  
+												<i>v2ray在路由器上存在启动崩溃现象，请设置客户以及服务器端alterid为较小值，例如10；
 													如果使用ws+tls请将域名以及时间同步服务器地址加入域名白名单，例如xxx.example.com,
 													pool.ntp.org.开启后会有守护进程检测v2ray状态,每两分钟检测一次.如果有其他需求请修改v2ray_run.sh</h3>
-												<h3>该插件需要先启动ss,输入配置后提交，会用v2ray进程替换原ss进程,点击关闭后提交会还原ss进程，从而实现切换。</h3>
-												<h3>本插件原理论上支持ss插件的所有功能，但只测试了v2ray的ws+tls模式，如果有问题请尝试修改生成的config.json文件,
-													并打开log的debug模式进行调试。插件提供导入配置，但需要修改特定端口，详细请看
-													<a href="https://gist.github.com/wd/e0bc83b33ce63506a9bdbc3b81658c52">梅林v2ray方案</a>
-												</h3>
-												<h3>守护脚本以及该插件原文件来自:<a href="https://t.me/merlinv2ray">Telegram群</a></h3>
+                                                                                                 <li 
+												<i>该插件需要先启动ss,输入配置后提交，会用v2ray进程替换原ss进程,点击关闭后提交会还原ss进程，从而实现切换。</h3>
+                                                                                                  <li 
+												<i>本插件原理论上支持ss插件的所有功能，但只测试了v2ray的ws+tls模式，如果有问题请尝试修改生成的config.json文件,
+													并打开log的debug模式进行调试。插件提供导入配置，但需要修改特定端口，详细请看：<a style="color: Yellow;" href="https://gist.github.com/wd/e0bc83b33ce63506a9bdbc3b81658c52">梅林v2ray方案</a>
+												<li
+												<i>守护脚本以及该插件原文件来自:<a  style="color:Yellow;" href="https://t.me/merlinv2ray">Telegram群</a></h3>
 												<div style="margin-left:5px;margin-top:10px;margin-bottom:10px">
 													<img src="/images/New_ui/export/line_export.png">
 												</div>
-												参考链接:
+												  <li  id="push_content1" style="margin-top:-5px;">参考链接:
 												<a href="https://www.v2ray.com">
 													<i style="margin-right:6px">V2ray官网</i>
 												</a>
@@ -536,12 +562,17 @@
 												<a href="https://www.v2ray.com/chapter_02/protocols/vmess.html">
 													<i style="margin-right:6px">配置名词解释</i>
 												</a>
-												<a href="https://www.v2ray.com/chapter_00/install.html">
+												<a href="https://233blog.com/post/17/">
 													<i style="margin-right:6px">服务器一键脚本</i>
 												</a>
 												<a href="https://htfy96.github.io/v2ray-config-gen/">
 													<i style="margin-right:6px">配置文件可视化生成</i>
 												</a>
+                                     <a href="https://github.com/v2ray/v2ray-core/releases">
+													<i style="margin-right:6px">v2ray客户端下载
+                                     <li 
+                                                      <h2> 我们的征途是星辰大海 ^_^ ^_^ ^_^
+                                                                                         </a>
 											</div>
 											<div style="margin-left:5px;margin-top:10px;margin-bottom:10px">
 												<img src="/images/New_ui/export/line_export.png">

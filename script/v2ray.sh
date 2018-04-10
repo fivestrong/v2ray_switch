@@ -6,6 +6,8 @@ enable=`dbus get v2ray_enable`
 if [ "$enable" == "1" ];then
 		echo_date 提交文件,开始执行生成配置文件..... >> /tmp/v2ray_log.log
 		/koolshare/scripts/v2ray_editconfig.sh >> /tmp/v2ray_log.log
+		echo_date 关闭v2ray进程..... >> /tmp/v2ray_log.log
+		/koolshare/scripts/v2ray_run.sh stop >> /tmp/v2ray_log.log
 		echo_date 测试文件是否通过..... >> /tmp/v2ray_log.log
 		result=$(/koolshare/bin/v2ray -test -config=/tmp/v2ray_config_tmp.json | grep "Configuration OK.")
 		echo $result >> /tmp/v2ray_log.log
