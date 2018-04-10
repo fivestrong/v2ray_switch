@@ -142,7 +142,7 @@ cat > $CONFIG_FILE <<-EOF
       "wsSettings": $ws
     },
     "mux": {
-      "enabled": "$v2ray_network_mux"
+      "enabled": $v2ray_network_mux
     }
   },
   "inboundDetour": [
