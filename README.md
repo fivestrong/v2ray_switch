@@ -1,3 +1,5 @@
+# 注意
+官方梅林ss插件已经支持v2ray，推荐使用。
 # v2ray_switch
 华硕梅林固件ss切换v2ray插件
 
